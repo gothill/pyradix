@@ -1,5 +1,5 @@
 =======
-pyradix
+pyradix - A lightweight Python client for Radix DLT.
 =======
 
 
@@ -14,24 +14,19 @@ pyradix
         :alt: Documentation Status
 
 
-
-
-A Python client for Radix's JSON-RPC API.
-
+**pyradix** is a Python wrapper and command line client for interfacing
+with the Radix DLT public network.
 
 * Free software: MIT license
 * Documentation: https://pyradix.readthedocs.io.
 
-
 Features
 --------
 
-* TODO
+* A Radix JSON-RPC API wrapper
+* A CLI
 
-Credits
--------
+Coming Soon
+--------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+* Wallet
