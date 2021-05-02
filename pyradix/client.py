@@ -1,6 +1,6 @@
 import fire
 
-from connection import Connection
+from pyradix.connection import Connection
 
 
 class Client(Connection):
