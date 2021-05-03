@@ -17,6 +17,17 @@ pyradix - A lightweight Python client for Radix.
 **pyradix** is a Python package for interfacing with the Radix DLT network.
 It provides a feature complete wrapper for Radix's JSON-RPC API.
 
+Installation
+==========
+
+::
+
+    $ pip install -U pyradix-dlt
+
+
+Getting started
+==========
+
 .. code-block:: python
 
     >>> from pyradix import Client
@@ -43,16 +54,7 @@ It provides a feature complete wrapper for Radix's JSON-RPC API.
 
 * Unofficial project
 * Free software: MIT license
-* Documentation: https://pyradix.readthedocs.io
 * Learn more about Radix: https://www.radixdlt.com
-
-
-Installation
-==========
-
-::
-
-    $ pip install -U pyradix-dlt
 
 
 Features
@@ -65,3 +67,4 @@ Coming Soon
 ==========
 
 * Wallet
+* Documentation
