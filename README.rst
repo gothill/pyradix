@@ -22,19 +22,22 @@ pyradix - A lightweight Python client for Radix.
     >>> client = Client(node_url='https://betanet.radixdlt.com/rpc')
     >>> client.get_token_balances('brx1qsp2kpg432d4ux93mdmjd8wtxpthyrt2ezzy3msupjmahwq5qdt5t8qwmf6k4')
     [
-    {
-        "amount": "70000000000000000000",
-        "rri": "cerb_rb1qvvm3mx58augl027sfv229f6qmsqq6xc7nqkncacxe0sp6faqs",
-    },
-    {
-        "amount": "105000000000000000000",
-        "rri": "emunie_rb1q0wsjfurhlus3dz9qgxd84an53cseqcjvl08sv3gr2qqmzkd2c",
-    },
-    {
-        "amount": "97111111200000000000",
-        "rri": "gum_rb1qduv0q8xtvgz5jqt4cmedyvaen88hu3pxrchhvp8xx9s5yjeh5",
-    },
-    {"amount": "139706666666666670000", "rri": "xrd_rb1qya85pwq"},
+        {
+            "amount": "70000000000000000000",
+            "rri": "cerb_rb1qvvm3mx58augl027sfv229f6qmsqq6xc7nqkncacxe0sp6faqs",
+        },
+        {
+            "amount": "105000000000000000000",
+            "rri": "emunie_rb1q0wsjfurhlus3dz9qgxd84an53cseqcjvl08sv3gr2qqmzkd2c",
+        },
+        {
+            "amount": "97111111200000000000",
+            "rri": "gum_rb1qduv0q8xtvgz5jqt4cmedyvaen88hu3pxrchhvp8xx9s5yjeh5",
+        },
+        {
+            "amount": "139706666666666670000",
+            "rri": "xrd_rb1qya85pwq"
+        },
     ]
 
 * Free software: MIT license
