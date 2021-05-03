@@ -43,7 +43,7 @@ pyradix - A lightweight Python client for Radix.
 * Unofficial project
 * Free software: MIT license
 * Documentation: https://pyradix.readthedocs.io
-* Learn more about Radix: https://www.radixdlt.com/
+* Learn more about Radix: https://www.radixdlt.com
 
 Features
 --------
