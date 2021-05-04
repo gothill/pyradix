@@ -68,3 +68,8 @@ Coming Soon
 
 * Wallet
 * Documentation
+
+
+TODO:
+* Test error handling (transaction status fails with different message)
+* Check dummy data

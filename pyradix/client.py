@@ -29,19 +29,13 @@ class Client(Connection):
     def get_transaction_history(self, address, n=100):
         # TODO: Pagination broken here.
         cursor = 1
-        return self._request("transactionHistory", [address, n, cursor])
+        return self._request("transactionHistory", [address, n, cursor])["transactions"]
 
     def get_stake_positions(self, address):
-        result = self._request("stakePositions", [address])
-        if "stakePositions" in result:
-            return result["stakePositions"]
-        return []
+        return self._request("stakePositions", [address])
 
     def get_unstaked_positions(self, address):
-        result = self._request("unstakePositions", [address])
-        if "unstakePositions" in result:
-            return result["unstakePositions"]
-        return []
+        return self._request("unstakePositions", [address])
 
     def get_transaction_status(self, transaction_id):
         return self._request("statusOfTransaction", [transaction_id])["status"]

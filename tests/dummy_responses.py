@@ -81,14 +81,12 @@ TRANSACTION_HISTORY_RESPONSE = {
     "jsonrpc": "2.0",
 }
 STAKE_POSITIONS_RESPONSE = {
-    "result": {
-        "stakePositions": [
-            {
-                "validator": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
-                "amount": "100",
-            }
-        ]
-    },
+    "result": [
+        {
+            "amount": "100",
+            "validator": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+        }
+    ],
     "id": "1",
     "jsonrpc": "2.0",
 }
@@ -104,10 +102,8 @@ UNSTAKED_POSITIONS_RESPONSE = {
 }
 TRANSACTION_STATUS_RESPONSE = {
     "result": {
-        "transactionStatus": {
-            "txID": "1b69e967eccfd2b8b5f4bea21a4efd74dc53c590994b725ea7600bff1020c132",
-            "status": "CONFIRMED",
-        }
+        "txID": "1b69e967eccfd2b8b5f4bea21a4efd74dc53c590994b725ea7600bff1020c132",
+        "status": "CONFIRMED",
     },
     "id": "1",
     "jsonrpc": "2.0",
