@@ -1,5 +1,5 @@
 =======
-pyradix - A lightweight Python client for Radix.
+pyradix - A lightweight Python client for Radix's JSON-RPC API.
 =======
 
 

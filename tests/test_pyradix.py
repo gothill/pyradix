@@ -192,3 +192,77 @@ class TestClient:
                 {"type": "Other"},
             ],
         }
+
+    def test_stake_tokens(self, requests_mock):
+        requests_mock.post(self.endpoint, json=STAKE_RESPONSE)
+        result = self.client.stake_tokens(
+            from_="address", validator_id="validator-id", amount=1000
+        )
+        assert result == {
+            "transaction": {
+                "blob": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "hashOfBlobToSign": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
+            "fee": "100",
+        }
+
+    def test_unstake_tokens(self, requests_mock):
+        requests_mock.post(self.endpoint, json=UNSTAKE_RESPONSE)
+        result = self.client.unstake_tokens(
+            from_="address", validator_id="validator-id", amount=1000
+        )
+        assert result == {
+            "transaction": {
+                "blob": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "hashOfBlobToSign": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
+            "fee": "100",
+        }
+
+    def test_finalize_transaction(self, requests_mock):
+        requests_mock.post(self.endpoint, json=FINALIZE_RESPONSE)
+        result = self.client.finalize_transaction(signature="signature")
+        assert result == {
+            "txID": "d52e7fa4fe41bfc04495227a982a7f7d21165a7b4ffcb90210b760ea3554d042"
+        }
+
+    def test_submit_transaction(self, requests_mock):
+        requests_mock.post(self.endpoint, json=SUBMIT_RESPONSE)
+        result = self.client.submit_transaction(signature="signature")
+        assert result == {
+            "submissionResult": {
+                "txID": "d52e7fa4fe41bfc04495227a982a7f7d21165a7b4ffcb90210b760ea3554d042"
+            }
+        }
+
+    def test_get_transaction(self, requests_mock):
+        requests_mock.post(self.endpoint, json=TRANSACTION_RESPONSE)
+        result = self.client.submit_transaction(signature="signature")
+        assert result == {
+            "txID": "d52e7fa4fe41bfc04495227a982a7f7d21165a7b4ffcb90210b760ea3554d042",
+            "sentAt": "1995-12-17T03:24:00",
+            "fee": "100",
+            "message": "Example message",
+            "actions": [
+                {
+                    "type": "TokenTransfer",
+                    "from": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "to": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "amount": "100",
+                    "rri": "xrd_rb1qya85pwq",
+                },
+                {
+                    "type": "StakeTokens",
+                    "from": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "validator": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "amount": "100",
+                },
+                {
+                    "type": "UnstakeTokens",
+                    "from": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "validator": "9S8khLHZa6FsyGo634xQo9QwLgSHGpXHHW764D5mPYBcrnfZV6RT",
+                    "amount": "100",
+                },
+                {"type": "Other"},
+            ],
+        }
