@@ -1,74 +1,64 @@
+import os
 import fire
-from collections import partial
+from functools import partial
 
-from pyradix.connection import Connection
+from tinyrpc import RPCClient
+from tinyrpc.protocols.jsonrpc import JSONRPCProtocol
+from tinyrpc.transports.http import HttpPostClientTransport
 
-
-radix_spec = [
-    dict(
-        method_name='network_id',
-        api_name='newtorkID',
-    )
-]
+RADIX_PREFIX = 'radix.'
 
 
-class Client(Connection):
-    # def _inject_api_methods(self, radix_spec):
-    #     for operation_id, kwargs in radix_spec.items():
-    #         use_schema_validation = not operation_id.endswith(
-    #             ('_patch', '_put')
-    #         )
-    #         setattr(
-    #             self,
-    #             operation_id,
-    #             partial(
-    #                 self._call,
-    #                 operation_id=operation_id,
-    #             ),
-    #         )
+class Client:
+    def __init__(self, node_url=None):
+        rpc_client = RPCClient(
+            JSONRPCProtocol(),
+            HttpPostClientTransport(node_url or os.getenv("RADIX_NODE_URL")),
+        )
+        self._rpc_client = rpc_client.get_proxy(prefix=RADIX_PREFIX)
+
     @property
     def network_id(self):
-        return self._request('networkId')
+        return self._rpc_client.networkId()['networkId']
 
     @property
-    def network_throughput(self):
-        return self._request('networkTransactionThroughput')
+    def network_tps(self):
+        return self._rpc_client.networkTransactionThroughput()['tps']
 
     @property
-    def network_throughput_demand(self):
-        return self._request('networkTransactionDemand')
+    def network_tps_demand(self):
+        return self._rpc_client.networkTransactionDemand()['tps']
 
     @property
-    def native_token(self):
-        return self._request('nativeToken')
+    def network_native_token(self):
+        return self._rpc_client.nativeToken()
 
     def get_token_info(self, token_id):
-        return self._request('tokenInfo', [token_id])
+        return self._rpc_client.nativeToken(token_id)
 
     def get_token_balances(self, address):
-        return self._request('tokenBalances', [address])
+        return self._rpc_client.tokenBalances(address)['tokenBalances']
 
     def get_transaction(self, transaction_id):
-        return self._request('lookupTransaction', [transaction_id])
+        return self._rpc_client.lookupTransaction(transaction_id)
 
     def get_transaction_history(self, address, n=100, cursor=1):
-        return self._request('transactionHistory', [address, n, cursor])
+        return self._rpc_client.transactionHistory(address, n, cursor)
 
     def get_stake_positions(self, address):
-        return self._request('stakePositions', [address])
+        return self._rpc_client.stakePositions(address)
 
     def get_unstaked_positions(self, address):
-        return self._request('unstakePositions', [address])
+        return self._rpc_client.unstakePositions(address)
 
     def get_transaction_status(self, transaction_id):
-        return self._request('statusOfTransaction', [transaction_id])
-
-    def get_validators(self, n=100, cursor=1):
-        cursor = 1
-        return self._request('validators', [n, cursor])
+        return self._rpc_client.statusOfTransaction(transaction_id)['status']
 
     def get_validator(self, validator_id):
-        return self._request('lookupValidator', [validator_id])
+        return self._rpc_client.lookupValidator(validator_id)
+
+    def get_validators(self, n=100, cursor=1):
+        return self._rpc_client.validators(n, cursor)
 
     def transfer_tokens(self, from_, to, amount, token_id):
         return self._build_transaction(
@@ -108,14 +98,16 @@ class Client(Connection):
         )
 
     def submit_transaction(self, signature):
-        return self._request('submitTransaction', [signature])
+        return self._rpc_client.submitTransaction(signature)
 
     def finalize_transaction(self, signature):
-        return self._request('finalizeTransaction', [signature])
+        return self._rpc_client.finalizeTransaction(signature)
 
     def _build_transaction(self, params):
-        return self._request('buildTransaction', [params])
+        return self._rpc_client.buildTransaction(params)
 
 
-if __name__ == '__main__':
+def main():
+    import fire
+
     fire.Fire(Client)

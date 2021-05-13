@@ -49,4 +49,9 @@ setup(
     url="https://github.com/gothill/pyradix-dlt",
     version="0.0.1",
     zip_safe=False,
+    # entry_points={
+    #     "console_scripts": [
+    #         "pyradix=pyradix:client",
+    #     ]
+    # },
 )

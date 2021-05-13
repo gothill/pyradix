@@ -26,7 +26,7 @@ class TestClient:
 
     def test_network_id(self, requests_mock, dummy_response):
         requests_mock.post(self.endpoint, json=dummy_response)
-        assert self.client.network_id == dummy_response['result']
+        assert self.client.network_id() == dummy_response['result']
 
     def test_network_throughput(self, requests_mock, dummy_response):
         requests_mock.post(self.endpoint, json=dummy_response)
