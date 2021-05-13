@@ -4,7 +4,11 @@ NETWORK_TPS_RESPONSE = {
     "id": "1",
     "jsonrpc": "2.0",
 }
-NETWORK_TPS_DEMAND_RESPONSE = {"result": {"tps": 100000}, "id": 1, "jsonrpc": "2.0"}
+NETWORK_TPS_DEMAND_RESPONSE = {
+    "result": {"tps": 100000},
+    "id": 1,
+    "jsonrpc": "2.0",
+}
 NATIVE_TOKEN_RESPONSE = {
     "result": {
         "tokenInfoURL": "https://tokens.radixdlt.com/",

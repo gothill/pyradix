@@ -1,5 +1,5 @@
 =======
-pyradix - A lightweight Python client for Radix's JSON-RPC API.
+pyradix - A lightweight Python client for Radix DLT.
 =======
 
 
@@ -15,7 +15,7 @@ pyradix - A lightweight Python client for Radix's JSON-RPC API.
 
 
 **pyradix** is a Python package for interfacing with the Radix DLT network.
-It provides a feature complete wrapper for Radix's JSON-RPC API.
+It provides a complete wrapper for Radix's JSON-RPC API and a CLI tool.
 
 Installation
 ==========
@@ -25,7 +25,7 @@ Installation
     $ pip install -U pyradix-dlt
 
 
-Getting started
+Client
 ==========
 
 .. code-block:: python
@@ -56,13 +56,6 @@ Getting started
 * Free software: MIT license
 * Learn more about Radix: https://www.radixdlt.com
 
-
-Features
-==========
-
-* Feature complete API wrapper
-* CLI
-
 Coming Soon
 ==========
 
@@ -71,5 +64,15 @@ Coming Soon
 
 
 TODO:
-* Test error handling (transaction status fails with different message)
-* Check dummy data
+* CLI
+    * Use Click
+    * Entry point
+* Tests
+    * Fix pagination tests
+    * Check dummy data
+    * Error handling
+    * Check call args
+* Documentation
+    * Expand README
+    * Docstrings
+* Type hints
