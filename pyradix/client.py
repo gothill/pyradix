@@ -105,9 +105,3 @@ class Client:
 
     def _build_transaction(self, params):
         return self._rpc_client.buildTransaction(params)
-
-
-def main():
-    import fire
-
-    fire.Fire(Client)
