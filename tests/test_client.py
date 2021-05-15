@@ -60,7 +60,6 @@ class TestClient:
             )
             mock.assert_called_once_with('address')
 
-    @pytest.mark.wip
     def test_get_transaction(self):
         with patch.object(
             self.client._rpc_client,
