@@ -1,21 +1,21 @@
 import os
-import fire
-from functools import partial
 
 from tinyrpc import RPCClient
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol
 from tinyrpc.transports.http import HttpPostClientTransport
 
-RADIX_PREFIX = 'radix.'
+from pyradix.constants import DEFAULT_NODE_URL, RPC_METHOD_PREFIX
 
 
 class Client:
     def __init__(self, node_url=None):
         rpc_client = RPCClient(
             JSONRPCProtocol(),
-            HttpPostClientTransport(node_url or os.getenv("RADIX_NODE_URL")),
+            HttpPostClientTransport(
+                node_url or os.getenv("RADIX_NODE_URL") or DEFAULT_NODE_URL
+            ),
         )
-        self._rpc_client = rpc_client.get_proxy(prefix=RADIX_PREFIX)
+        self._rpc_client = rpc_client.get_proxy(prefix=RPC_METHOD_PREFIX)
 
     @property
     def network_id(self):
@@ -30,11 +30,11 @@ class Client:
         return self._rpc_client.networkTransactionDemand()['tps']
 
     @property
-    def network_native_token(self):
+    def native_token(self):
         return self._rpc_client.nativeToken()
 
     def get_token_info(self, token_id):
-        return self._rpc_client.nativeToken(token_id)
+        return self._rpc_client.tokenInfo(token_id)
 
     def get_token_balances(self, address):
         return self._rpc_client.tokenBalances(address)['tokenBalances']
@@ -55,6 +55,7 @@ class Client:
         return self._rpc_client.statusOfTransaction(transaction_id)['status']
 
     def get_validator(self, validator_id):
+        # TODO: should this just be address?
         return self._rpc_client.lookupValidator(validator_id)
 
     def get_validators(self, n=100, cursor=1):
@@ -97,11 +98,15 @@ class Client:
             ]
         )
 
-    def submit_transaction(self, signature):
-        return self._rpc_client.submitTransaction(signature)
+    def submit_transaction(self, public_key, blob, signature):
+        return self._rpc_client.submitTransaction(
+            dict(blob=blob), public_key, signature
+        )
 
-    def finalize_transaction(self, signature):
-        return self._rpc_client.finalizeTransaction(signature)
+    def finalize_transaction(self, public_key, blob, signature):
+        return self._rpc_client.finalizeTransaction(
+            dict(blob=blob), public_key, signature
+        )
 
     def _build_transaction(self, params):
         return self._rpc_client.buildTransaction(params)

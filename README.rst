@@ -33,7 +33,7 @@ Client
 
     >>> from pyradix import Client
     >>> client = Client(node_url='https://betanet.radixdlt.com/rpc')
-    >>> client.get_token_balances('brx1qsp2kpg432d4ux93mdmjd8wtxpthyrt2ezzy3msupjmahwq5qdt5t8qwmf6k4')
+    >>> client.get_token_balances('<address>')
     [
         {
             "amount": "70000000000000000000",
@@ -67,17 +67,24 @@ Coming Soon
 
 
 TODO:
-* CLI
-    * Use Click
-    * Entry point
+* Bugs
+    * Finalize/submit requests
 * Tests
-    * Fix pagination tests
+    * Fix tests
     * Check dummy data
     * Error handling
     * Check call args
+    * CLI tests
 * Documentation
     * Expand README
     * Docstrings
+* CLI
+    * Help
+    * Formatting
+    * Readability (e.g. lookup tokens and display name)
+        * Use local cache?
+* Check method names
+* Check Client / CLI / Tests ordered the same
 * Type hints
 * Lint
     * isort
