@@ -78,9 +78,9 @@ class TestClient:
             return_value=dict(cursor='1', transactions=[1, 2, 3]),
         ) as mock:
             assert self.client.get_transaction_history(
-                'address', n=5, cursor='cursor'
+                'address', n=10, cursor='cursor'
             ) == dict(cursor='1', transactions=[1, 2, 3])
-            mock.assert_called_once_with('address', 5, 'cursor')
+            mock.assert_called_once_with('address', 10, 'cursor')
 
     def test_get_stake_positions(self):
         with patch.object(

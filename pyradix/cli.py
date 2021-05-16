@@ -66,7 +66,7 @@ def transaction_status(ctx, id):
 @main.command()
 @click.option('--address', help='Address to lookup transaction history for')
 @click.option('--n', help='Number of transactions to fetch', default=5)
-@click.option('--cursor', help='Continuation cursor', default=1)
+@click.option('--cursor', help='Continuation cursor', default='1')
 @click.pass_context
 def transaction_history(ctx, address, n, cursor):
     pprint(ctx.obj['client'].get_transaction_history(address, n, cursor))
