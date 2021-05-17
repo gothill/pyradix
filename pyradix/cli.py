@@ -82,7 +82,7 @@ def stake_positions(ctx, address):
 @main.command()
 @click.option('--address', help='Address to lookup unstaked positions for')
 @click.pass_context
-def unstake_positions(ctx, address):
+def unstaked_positions(ctx, address):
     pprint(ctx.obj['client'].get_unstaked_positions(address))
 
 
@@ -95,7 +95,7 @@ def validator_info(ctx, id):
 
 @main.command()
 @click.option('--n', help='Number of transactions to fetch', default=5)
-@click.option('--cursor', help='Continuation cursor', default=1)
+@click.option('--cursor', help='Continuation cursor', default='1')
 @click.pass_context
 def validators(ctx, n, cursor):
     pprint(ctx.obj['client'].get_validators(n, cursor))
@@ -104,7 +104,7 @@ def validators(ctx, n, cursor):
 @main.command()
 @click.option('--from', 'from_')
 @click.option('--to', help='')
-@click.option('--amount', help='')
+@click.option('--amount', help='')  # TODO: Make amount an integer (also below)
 @click.option('--token-id', help='')
 @click.pass_context
 def transfer_tokens(ctx, from_, to, amount, token_id):
@@ -130,16 +130,17 @@ def unstake_tokens(ctx, from_, validator_id, amount):
 
 
 @main.command()
-@click.option('--public_key', help='')
+@click.option('--public-key', help='')
 @click.option('--blob', help='')
 @click.option('--signature', help='')
 @click.pass_context
 def submit_transaction(ctx, public_key, blob, signature):
+    # TODO: Fix me
     pprint(ctx.obj['client'].submit_transaction(public_key, blob, signature))
 
 
 @main.command()
-@click.option('--public_key', help='')
+@click.option('--public-key', help='')
 @click.option('--blob', help='')
 @click.option('--signature', help='')
 @click.pass_context

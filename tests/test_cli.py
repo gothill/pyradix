@@ -115,3 +115,182 @@ class TestCLI:
         assert result.exit_code == 0
         assert result.output == '[1, 2, 3]\n'
         mock_client.get_stake_positions.assert_called_once_with('address')
+
+    def test_unstaked_positions(self, Client):
+        mock_client = MagicMock(
+            get_unstaked_positions=MagicMock(return_value=[1, 2, 3])
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main, ['unstaked-positions', '--address', 'address'], obj={}
+        )
+        assert result.exit_code == 0
+        assert result.output == '[1, 2, 3]\n'
+        mock_client.get_unstaked_positions.assert_called_once_with('address')
+
+    def test_validator_info(self, Client):
+        mock_client = MagicMock(
+            get_validator=MagicMock(
+                return_value=dict(txID='tx-id', sentAt='1995-12-17T03:24:00')
+            )
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main, ['validator-info', '--id', 'validator-id'], obj={}
+        )
+        assert result.exit_code == 0
+        assert (
+            result.output
+            == "{'sentAt': '1995-12-17T03:24:00', 'txID': 'tx-id'}\n"
+        )
+        mock_client.get_validator.assert_called_once_with('validator-id')
+
+    def test_validators(self, Client):
+        mock_client = MagicMock(
+            get_validators=MagicMock(return_value=[1, 2, 3])
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'validators',
+                '--n',
+                '10',
+                '--cursor',
+                'cursor',
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == '[1, 2, 3]\n'
+        mock_client.get_validators.assert_called_once_with(10, 'cursor')
+
+    def test_transfer_tokens(self, Client):
+        mock_client = MagicMock(
+            transfer_tokens=MagicMock(return_value=dict(txId='tx-id'))
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'transfer-tokens',
+                '--from',
+                'from-address',
+                '--to',
+                'to-address',
+                '--amount',
+                10,
+                '--token-id',
+                'token-id',
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == "{'txId': 'tx-id'}\n"
+        mock_client.transfer_tokens.assert_called_once_with(
+            'from-address', 'to-address', '10', 'token-id'
+        )
+
+    def test_stake_tokens(self, Client):
+        mock_client = MagicMock(
+            stake_tokens=MagicMock(return_value=dict(txId='tx-id'))
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'stake-tokens',
+                '--from',
+                'from-address',
+                '--validator-id',
+                'validator-id',
+                '--amount',
+                10,
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == "{'txId': 'tx-id'}\n"
+        mock_client.stake_tokens.assert_called_once_with(
+            'from-address',
+            'validator-id',
+            '10',
+        )
+
+    def test_unstake_tokens(self, Client):
+        mock_client = MagicMock(
+            unstake_tokens=MagicMock(return_value=dict(txId='tx-id'))
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'unstake-tokens',
+                '--from',
+                'from-address',
+                '--validator-id',
+                'validator-id',
+                '--amount',
+                10,
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == "{'txId': 'tx-id'}\n"
+        mock_client.unstake_tokens.assert_called_once_with(
+            'from-address',
+            'validator-id',
+            '10',
+        )
+
+    def test_submit_transaction(self, Client):
+        mock_client = MagicMock(
+            submit_transaction=MagicMock(return_value=dict(txId='tx-id'))
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'submit-transaction',
+                '--public-key',
+                'public-key',
+                '--blob',
+                'blob',
+                '--signature',
+                'signature',
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == "{'txId': 'tx-id'}\n"
+        mock_client.submit_transaction.assert_called_once_with(
+            'public-key',
+            'blob',
+            'signature',
+        )
+
+    def test_finalize_transaction(self, Client):
+        mock_client = MagicMock(
+            finalize_transaction=MagicMock(return_value=dict(txId='tx-id'))
+        )
+        Client.return_value = mock_client
+        result = self.runner.invoke(
+            main,
+            [
+                'finalize-transaction',
+                '--public-key',
+                'public-key',
+                '--blob',
+                'blob',
+                '--signature',
+                'signature',
+            ],
+            obj={},
+        )
+        assert result.exit_code == 0
+        assert result.output == "{'txId': 'tx-id'}\n"
+        mock_client.finalize_transaction.assert_called_once_with(
+            'public-key',
+            'blob',
+            'signature',
+        )
