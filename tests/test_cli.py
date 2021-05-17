@@ -4,7 +4,6 @@ from click.testing import CliRunner
 import pytest
 
 from pyradix.cli import main
-from pyradix.client import Client
 
 
 @patch('pyradix.cli.Client')
