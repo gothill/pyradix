@@ -1,7 +1,7 @@
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
-from click.testing import CliRunner
 import pytest
+from click.testing import CliRunner
 
 from pyradix.cli import main
 

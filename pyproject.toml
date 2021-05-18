@@ -2,3 +2,11 @@
 line-length = 79
 # Don't convert single-quotes to double-quotes
 skip-string-normalization = true
+
+[tool.isort]
+multi_line_output = 3
+known_first_party = "pyradix"
+sections = ["STDLIB","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]
+no_lines_before = "LOCALFOLDER"
+combine_as_imports = true
+order_by_type = false
