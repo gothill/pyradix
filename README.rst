@@ -66,15 +66,11 @@ Coming Soon
 * Documentation
 
 
-TODO:
+TODO
+==========
+
 * Bugs
     * Finalize/submit requests
-* Tests
-    * Fix tests
-    * Check dummy data
-    * Error handling
-    * Check call args
-    * CLI tests
 * Documentation
     * Expand README
     * Docstrings
@@ -82,7 +78,6 @@ TODO:
     * Help
     * Formatting
     * Readability (e.g. lookup tokens and display name)
-        * Use local cache?
 * Check method names
 * Check Client / CLI / Tests ordered the same
 * Type hints

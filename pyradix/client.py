@@ -15,51 +15,51 @@ class Client:
                 node_url or os.getenv("RADIX_NODE_URL") or DEFAULT_NODE_URL
             ),
         )
-        self._rpc_client = rpc_client.get_proxy(prefix=RPC_METHOD_PREFIX)
+        self._rpc_proxy = rpc_client.get_proxy(prefix=RPC_METHOD_PREFIX)
 
     @property
     def network_id(self):
-        return self._rpc_client.networkId()['networkId']
+        return self._rpc_proxy.networkId()['networkId']
 
     @property
     def network_tps(self):
-        return self._rpc_client.networkTransactionThroughput()['tps']
+        return self._rpc_proxy.networkTransactionThroughput()['tps']
 
     @property
     def network_tps_demand(self):
-        return self._rpc_client.networkTransactionDemand()['tps']
+        return self._rpc_proxy.networkTransactionDemand()['tps']
 
     @property
     def native_token(self):
-        return self._rpc_client.nativeToken()
+        return self._rpc_proxy.nativeToken()
 
     def get_token_info(self, token_id):
-        return self._rpc_client.tokenInfo(token_id)
+        return self._rpc_proxy.tokenInfo(token_id)
 
     def get_token_balances(self, address):
-        return self._rpc_client.tokenBalances(address)['tokenBalances']
+        return self._rpc_proxy.tokenBalances(address)['tokenBalances']
 
     def get_transaction(self, transaction_id):
-        return self._rpc_client.lookupTransaction(transaction_id)
+        return self._rpc_proxy.lookupTransaction(transaction_id)
 
     def get_transaction_history(self, address, n=100, cursor=1):
-        return self._rpc_client.transactionHistory(address, n, cursor)
+        return self._rpc_proxy.transactionHistory(address, n, cursor)
 
     def get_stake_positions(self, address):
-        return self._rpc_client.stakePositions(address)
+        return self._rpc_proxy.stakePositions(address)
 
     def get_unstaked_positions(self, address):
-        return self._rpc_client.unstakePositions(address)
+        return self._rpc_proxy.unstakePositions(address)
 
     def get_transaction_status(self, transaction_id):
-        return self._rpc_client.statusOfTransaction(transaction_id)['status']
+        return self._rpc_proxy.statusOfTransaction(transaction_id)['status']
 
     def get_validator(self, validator_id):
         # TODO: should this just be address?
-        return self._rpc_client.lookupValidator(validator_id)
+        return self._rpc_proxy.lookupValidator(validator_id)
 
     def get_validators(self, n=100, cursor=1):
-        return self._rpc_client.validators(n, cursor)
+        return self._rpc_proxy.validators(n, cursor)
 
     def transfer_tokens(self, from_, to, amount, token_id):
         return self._build_transaction(
@@ -99,14 +99,14 @@ class Client:
         )
 
     def submit_transaction(self, public_key, blob, signature):
-        return self._rpc_client.submitTransaction(
+        return self._rpc_proxy.submitTransaction(
             dict(blob=blob), public_key, signature
         )
 
     def finalize_transaction(self, public_key, blob, signature):
-        return self._rpc_client.finalizeTransaction(
+        return self._rpc_proxy.finalizeTransaction(
             dict(blob=blob), public_key, signature
         )
 
     def _build_transaction(self, params):
-        return self._rpc_client.buildTransaction(params)
+        return self._rpc_proxy.buildTransaction(params)
